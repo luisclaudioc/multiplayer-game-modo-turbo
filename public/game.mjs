@@ -101,7 +101,7 @@ socket.on('updateGameState', (gameState, playerScore) => {
         }, "100")
     } else {
         if (playerScore) {
-            if (playerScore.sound) avatarsObj[playerScore.sound].audio.play();
+            if (playerScore.sound && gameView === gamePage.start) avatarsObj[playerScore.sound].audio.play();
             if (playerScore.resetScore) {
                 player.score = 0;
                 socket.emit('movePlayer', { playerObj: player });
