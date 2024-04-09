@@ -129,7 +129,7 @@ function render(gameState) {
             if (turboReady) ctx.drawImage(turboImage, (canvas.width / 2) - 12.5, 240);
             ctx.textAlign = "center";
             ctx.font = "16px Courier New";
-            ctx.fillText(`Select your player`, canvas.width / 2, 180);
+            ctx.fillText(`Select your player: ${selector === 0 ? "Pabllo Vittar" : selector === 1 ? "Anitta" : "Luisa Sonza"}`, canvas.width / 2, 180);
             ctx.font = "25px Courier New";
             ctx.fillText(`Press enter to start`, canvas.width / 2, 350);
         break;
