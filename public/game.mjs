@@ -107,7 +107,7 @@ socket.on('updateGameState', (gameState, playerScore) => {
                 socket.emit('movePlayer', { playerObj: player });
             }
         }
-        if (gameState.count === 0) handleGameOver(); 
+        if (gameState.count === 0 && gameView === gamePage.start) handleGameOver(); 
         init(gameState);
     }
 });
