@@ -14,13 +14,13 @@ class Player {
       case "w":
       case "W":
       case "up":
-        if (this.y > 50 && this.x >= 32.5 && this.x <= 572.5) this.y -= speed;
+        if (this.y > 50 && this.x >= 32.5 && this.x <= 552.5) this.y -= speed;
       break;
       case "ArrowDown":
       case "s":
       case "S":
       case "down":
-        if (this.y < 390 && this.x >= 32.5 && this.x <= 572.5) this.y += speed;
+        if (this.y < 390 && this.x >= 32.5 && this.x <= 552.5) this.y += speed;
         else if (this.y === 390 && this.y < 400 && ( this.x <= 232.5 || this.x >= 352.5 )) this.y += speed;
       break;
       case "ArrowRight":
