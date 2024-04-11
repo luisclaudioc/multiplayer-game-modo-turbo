@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const expect = require('chai');
 const socket = require('socket.io');
 const helmet = require('helmet');
-const noCache = require('nocache')
+const noCache = require('nocache');
 const cors = require('cors');
 
 const fccTestingRoutes = require('./routes/fcctesting.js');
@@ -92,7 +92,6 @@ function newCollectible() {
 function countDown() {
   while (gameState.count >= 0) {
     io.emit('updateGameState', gameState)
-    if (gameState.count < 0) delete gameState.count;
     return gameState.count--;
   }
 }

@@ -43,6 +43,11 @@ var arrowImage = new Image();
 arrowImage.onload = function (){arrowReady = true};
 arrowImage.src = "./public/images/arrow.png";
 
+var winnerReady = false;
+var winnerImage = new Image();
+winnerImage.onload = function (){winnerReady = true};
+winnerImage.src = "./public/images/winner.png";
+
 
 // Global Variables
 let player, collectible, chosenAvatar;
@@ -59,16 +64,19 @@ let gameView = gamePage.menu;
 
 const avatarsObj = {
     "pabllo": {
+        id: 0,
         audio: new Audio('./public/audios/audio-pabllo.mp3'),
         image: playerPablloImage,
         x: (canvas.width / 4) - (avatarWidth / 2) - 10,
     },
     "anitta": {
+        id: 1,
         audio: new Audio('./public/audios/audio-anitta.mp3'),
         image: playerAnittaImage,
         x: (canvas.width / 2) - (avatarWidth / 2),
     },
     "luisa": {
+        id: 2,
         audio: new Audio('./public/audios/audio-luisa.mp3'),
         image: playerLuisaImage,
         x: (3 * canvas.width / 4) - (avatarWidth / 2) + 10,
@@ -101,13 +109,13 @@ socket.on('updateGameState', (gameState, playerScore) => {
         }, "100")
     } else {
         if (playerScore) {
-            if (playerScore.sound) avatarsObj[playerScore.sound].audio.play();
+            if (playerScore.sound && gameView === gamePage.start) avatarsObj[playerScore.sound].audio.play();
             if (playerScore.resetScore) {
                 player.score = 0;
                 socket.emit('movePlayer', { playerObj: player });
             }
         }
-        if (gameState.count === 0) handleGameOver(); 
+        if (gameState.count === 0 && gameView === gamePage.start) handleGameOver(); 
         init(gameState);
     }
 });
@@ -127,9 +135,10 @@ function render(gameState) {
             if (playerLuisaReady) ctx.drawImage(playerLuisaImage, (canvas.width / 2) - (avatarWidth / 2) + 45, 100);
             if (arrowReady) ctx.drawImage(arrowImage, (canvas.width / 2) - 45 + ( 45 * selector  ) - (avatarWidth / 2), 70);
             if (turboReady) ctx.drawImage(turboImage, (canvas.width / 2) - 12.5, 240);
+            ctx.fillStyle = "white"
             ctx.textAlign = "center";
             ctx.font = "16px Courier New";
-            ctx.fillText(`Select your player`, canvas.width / 2, 180);
+            ctx.fillText(`Select your player: ${selector === 0 ? "Pabllo Vittar" : selector === 1 ? "Anitta" : "Luisa Sonza"}`, canvas.width / 2, 180);
             ctx.font = "25px Courier New";
             ctx.fillText(`Press enter to start`, canvas.width / 2, 350);
         break;
@@ -155,13 +164,15 @@ function render(gameState) {
             
         case 3:
             if (backgroundReady) ctx.drawImage(backgroundImage, 0, 0);
-            if (turboReady) ctx.drawImage(turboImage, (canvas.width / 2) - 12.5, 240);
             ctx.textAlign = "center";
             ctx.font = "25px Courier New";
             ctx.fillText(`Time is up!`, canvas.width / 2, 100);
             ctx.font = "20px Courier New";
             ctx.fillText(`Your score: ${player.score}`, canvas.width / 2, 150);
-            ctx.fillText(`Your position: ${player.calculateRank(gameState.players)}`, canvas.width / 2, 180);
+            let position = player.calculateRank(gameState.players)
+            ctx.fillText(`Your position: ${position}`, canvas.width / 2, 180);
+            if (winnerReady && position[0] === "1") ctx.drawImage(winnerImage, canvas.width / 2 - 20, 240);
+            if (turboReady && position[0] !== "1") ctx.drawImage(turboImage, (canvas.width / 2) - 12.5, 240);
             ctx.font = "25px Courier New";
             ctx.fillText(`Press enter to restart`, canvas.width / 2, 350);
         break;
