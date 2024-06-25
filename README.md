@@ -14,7 +14,7 @@ Referencing the incredible video clip from Modo Turbo (https://www.youtube.com/w
 - Helmet for secure wep application
 
 ## Preview
-![game preview](https://github.com/luisclaudioc/luiscostantin-portfolio/assets/140541760/3455bd3c-2a66-4720-888e-be59bb46b34b)
+![game preview](https://github.com/luisclaudioc/multiplayer-game-modo-turbo/assets/140541760/89d754ec-ed6b-4b5f-b17c-c700cff4706e)
 
 ## Live at
 https://turbomode.onrender.com
